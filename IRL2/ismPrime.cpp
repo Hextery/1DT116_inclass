@@ -13,17 +13,16 @@ int main(int argc, char* argv[]) {
     const int n = 50000000;
     std::vector<bool> isPrime(n + 1, true);
     isPrime[0] = isPrime[1] = false;
-    int sqrt_n = std::sqrt(n)
+    int sqrt_n = std::sqrt(n);
     omp_set_num_threads(threads);
     auto start_time = std::chrono::high_resolution_clock::now();
     #pragma omp parallel for schedule(dynamic)
     for (int k = 2; k <= sqrt_n ; k++) {
-        if (isPrime[k]) {
             // Mark multiples of k starting from k*k
-            for (int i = k * k; i <= n; i += k) {
+            for (int i = k; i <= n; i += k) {
                 isPrime[i] = false;
             }
-        }
+        
     }
 
     // Count primes
