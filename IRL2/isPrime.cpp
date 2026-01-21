@@ -1,43 +1,30 @@
 #include <iostream>
 #include <vector>
-#include <utility>
 #include <cmath>
 
 int main() {
-    const int n = 50000000; // n = max
-    std::vector<std::pair<int, bool>> myVector;
-    for (int i = 1; i <= n; ++i) {
-        myVector.emplace_back(i, true);
-    }
+    const int n = 50000000;
+    std::vector<bool> isPrime(n + 1, true);
+    isPrime[0] = isPrime[1] = false;
 
-    //int k = 2; // b�rjar p� tv�
-    for (int k = 2; k < sqrt(n) ; k++)
-    {
-            for (int i = k; i <= n; i += k) {
-                myVector[i - 1].second = false;
-            
-        }
-    }/*
-    while (k * k <= n) {
-        if (myVector[k - 1].second) {
-            // kollar prim
-            for (int i = k; i <= n; i += k) {
-                myVector[i - 1].second = false;
+    for (int k = 2; k * k <= n; k++) {
+        if (isPrime[k]) {
+            // Mark multiples of k starting from k*k
+            for (int i = k * k; i <= n; i += k) {
+                isPrime[i] = false;
             }
         }
-        k++;
-    }*/
+    }
 
-    // Skriver ut
-    std::cout << "Prime numbers up to " << n << ":" << std::endl;
+    // Count primes
     int count = 0;
-    for (const auto& pair : myVector) {
-        if (pair.second) { 
-            //std::cout << pair.first << " ";
+    for (int i = 2; i <= n; i++) {
+        if (isPrime[i]) {
             count++;
         }
     }
-    std::cout << "Amount : " << count << std::endl;
+
+    std::cout << "Prime numbers up to " << n << ": " << count << std::endl;
 
     return 0;
 }
