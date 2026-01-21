@@ -3,14 +3,14 @@
 #include <utility>
 
 int main() {
-    const int n = 50 000 000; // n = max
+    const int n = 50000000; // n = max
     std::vector<std::pair<int, bool>> myVector;
     for (int i = 1; i <= n; ++i) {
         myVector.emplace_back(i, true);
     }
 
     //int k = 2; // b�rjar p� tv�
-    for (int k = 2; k < (int)std::sqrt(n) ; k++)
+    for (int k = 2; k < sqrt(n) ; k++)
     {
         if (myVector[k-1].second) {
             // kollar prim
