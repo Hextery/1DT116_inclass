@@ -25,7 +25,7 @@ int main () {
     //Fill in. Loop and generate dot-product
     for (int i; i < N; i++)
     {
-        dot_product += A[i]*B[i]
+        dot_product += A[i]*B[i];
     }
     end = omp_get_wtime();
 
