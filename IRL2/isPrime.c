@@ -10,9 +10,9 @@ int main() {
     }
 
     //int k = 2; // b�rjar p� tv�
-    for (int k = 2; k < sqrt(n) ; k++)
+    for (int k = 2; k < (int)std::sqrt(n) ; k++)
     {
-        if (myVector[k].second) {
+        if (myVector[k-1].second) {
             // kollar prim
             for (int i = k; i <= n; i += k) {
                 myVector[i - 1].second = false;
