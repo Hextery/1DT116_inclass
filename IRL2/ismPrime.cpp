@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
     #pragma omp parallel for schedule(dynamic)
     for (int k = 2; k <= sqrt_n ; k++) {
             // Mark multiples of k starting from k*k
-            for (int i = k; i <= n; i += k) {
+            for (int i = k*k; i <= n; i += k) {
                 isPrime[i] = false;
             }
         
