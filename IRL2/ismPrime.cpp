@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     std::vector<bool> isPrime(n + 1, true);
     isPrime[0] = isPrime[1] = false;
     auto start_time = std::chrono::high_resolution_clock::now();
-    #pragma omp paralllel for schedule(dynamic) num_threads(threads)
+    #pragma omp parallel for schedule(dynamic) num_threads(threads)
     for (int k = 2; k * k <= n; k++) {
         if (isPrime[k]) {
             // Mark multiples of k starting from k*k
