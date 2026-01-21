@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <cmath>
 
 int main() {
     const int n = 50000000; // n = max
