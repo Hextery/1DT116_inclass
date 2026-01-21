@@ -10,7 +10,7 @@ int main() {
     }
 
     //int k = 2; // b�rjar p� tv�
-    for (int k = 2; k < n ; k++)
+    for (int k = 2; k < sqrt(n) ; k++)
     {
         if (myVector[k].second) {
             // kollar prim
