@@ -24,7 +24,7 @@ int main () {
     begin = omp_get_wtime();
     //Fill in. Loop and generate dot-product
     #pragma omp parallel for reduction(+:dot_product)
-    for (int i; i < N; i++)
+    for (int i = 0; i < N; i++)
     {
         dot_product += A[i]*B[i];
     }
