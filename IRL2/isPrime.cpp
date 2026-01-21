@@ -1,37 +1,45 @@
 #include <iostream>
 #include <vector>
 #include <utility>
-#include <cmath>  // Added math header
+#include <cmath>
 
 int main() {
-    const int n = 50000000;
+    const int n = 50000000; // n = max
     std::vector<std::pair<int, bool>> myVector;
-    
-    // Resize and initialize vector
-    myVector.resize(n);
     for (int i = 1; i <= n; ++i) {
-        myVector[i-1] = {i, true};
+        myVector.emplace_back(i, true);
     }
 
-    // Use integer square root method
-    for (int k = 2; k * k <= n; k++) {
+    //int k = 2; // b�rjar p� tv�
+    for (int k = 2; k < sqrt(n) ; k++)
+    {
         if (myVector[k-1].second) {
-            // Mark multiples as non-prime
-            for (int i = k * k; i <= n; i += k) {
+            // kollar prim
+            for (int i = k; i <= n; i += k) {
                 myVector[i - 1].second = false;
             }
         }
-    }
+    }/*
+    while (k * k <= n) {
+        if (myVector[k - 1].second) {
+            // kollar prim
+            for (int i = k; i <= n; i += k) {
+                myVector[i - 1].second = false;
+            }
+        }
+        k++;
+    }*/
 
-    // Count primes
+    // Skriver ut
+    std::cout << "Prime numbers up to " << n << ":" << std::endl;
     int count = 0;
     for (const auto& pair : myVector) {
         if (pair.second) { 
+            //std::cout << pair.first << " ";
             count++;
         }
     }
-    
-    std::cout << "Amount of primes: " << count << std::endl;
+    std::cout << "Amount : " << count << std::endl;
 
     return 0;
 }
