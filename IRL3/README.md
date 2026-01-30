@@ -169,6 +169,12 @@ All you need to do is set SIMD registers with a certain value, load, multiply, a
 E.g. `_mm512_load_ps()` or `vld1q_f32()` to get you started!  
 Setting all values of the elements in the vector can be done using the `_mm512_set1_ps()` or `vdupq_n_f32()`.
 
+### If you want an extra challenge
+You can also try applying a convolution on the image. [Gaussian blur (3x3)](https://en.wikipedia.org/wiki/Kernel_(image_processing)#Details) would be the most simplest. 
+Also note that Gaussian blur is seperable and thus you can independantly do two 1D convolutions per pixel, one on the horizontal and the other on the vertical axis.
+I have not tried this out myself, but if you like the challenge, please give it a try and let me know how it goes!
+If you wish, you could choose to do your group presentation by presenting how you applied the Gaussian blur, how it compares in performance to a scalar implementation (non SIMD), and how the two points (scalar and vector version) are placed on the roofline model. 
+
 
 ## 2. Monte-carlo Pi simulation
 Generate many 100s of millions of random points with ranges [0,1] for both the x and y value.
