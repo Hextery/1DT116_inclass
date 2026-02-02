@@ -8,7 +8,8 @@ SRCS = grayscale_image.c ppm.c common.c
 UNAME_S := $(shell uname -m)
 ifeq ($(UNAME_S),x86_64)
     CFLAGS += -D__x86_64__
-    CFLAGS += -march=native -lm
+    CFLAGS += -march=native
+	LDFLAGS += -lm
 else ifeq ($(UNAME_S),arm64)
     CC = clang
     CFLAGS += -D__arm__
@@ -22,7 +23,7 @@ $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 pi: pi.c common.c
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 hello_world: hello_world.c
 	$(CC) $(CFLAGS) -o $@ $^

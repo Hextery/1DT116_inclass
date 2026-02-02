@@ -247,7 +247,11 @@ void writePGM(const PPMImage* ppm, const char* original_filename, enum dataType 
         if (type == FP32)
             raw_data[i] = (unsigned char)ppm->grayscale_data[i];
         else if (type == FP16)
+        {
+#ifdef __arm__
             raw_data[i] = (unsigned char)ppm->grayscale_data_fp16[i];
+#endif
+        }
     }
 
     // Write the grayscale image data with a loop
