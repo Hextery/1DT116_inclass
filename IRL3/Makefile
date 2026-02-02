@@ -8,20 +8,24 @@ SRCS = grayscale_image.c ppm.c common.c
 UNAME_S := $(shell uname -m)
 ifeq ($(UNAME_S),x86_64)
     CFLAGS += -D__x86_64__
-    CFLAGS += -mavx -lm
+    CFLAGS += -march=native
+	LDFLAGS += -lm
 else ifeq ($(UNAME_S),arm64)
     CC = clang
     CFLAGS += -D__arm__
 endif
 
 # Default target
-all: $(TARGET) pi
+all: $(TARGET) pi hello_world
 
 # Rule for building the target
 $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $@ $^
 
 pi: pi.c common.c
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+hello_world: hello_world.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 
@@ -33,6 +37,8 @@ run_grayscale_x86: grayscale_image
 	./grayscale_image serial *.ppm
 	./grayscale_image sse *.ppm
 	./grayscale_image avx *.ppm
+	./grayscale_image avx512 *.ppm
+	./grayscale_image avx512_fmadd *.ppm
 
 run_grayscale_arm: grayscale_image
 	./grayscale_image serial *.ppm
