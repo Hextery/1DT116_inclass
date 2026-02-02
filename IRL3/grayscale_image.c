@@ -20,6 +20,7 @@ void grayscale_image_simd_avx(PPMImage *ppm)
 {
     float *R, *G, *B;
     getRGBArrays(&R, &G, &B, ppm);
+   
 
     //Fill this code
     //Write into the ppm->grayscale_data[i];
@@ -29,8 +30,29 @@ void grayscale_image_simd_sse(PPMImage *ppm)
 {
     float *R, *G, *B;
     getRGBArrays(&R, &G, &B, ppm);
+    __m128 weights = _mm_set_ps(0.0f, 0.07f, 0.72f, 0.21f);
+    
+    int i;
+    // Process 4 pixels at a time
+    for (i = 0; i < ppm->img_size; i += 4) {
+        // Use _mm_load_ps() since you mentioned 32-byte alignment
+        __m128 r_vec = _mm_load_ps(&R[i]);
+        __m128 g_vec = _mm_load_ps(&G[i]);
+        __m128 b_vec = _mm_load_ps(&B[i]);
+        
+        // Multiply each channel by its weight
+        r_vec = _mm_mul_ps(r_vec, _mm_set1_ps(weights[2]));  // R * 0.21
+        g_vec = _mm_mul_ps(g_vec, _mm_set1_ps(weights[1]));  // G * 0.72
+        b_vec = _mm_mul_ps(b_vec, _mm_set1_ps(weights[0]));  // B * 0.07
+        
+        // Sum the weighted channels
+        r_vec = _mm_add_ps(r_vec, g_vec);
+        r_vec = _mm_add_ps(r_vec, b_vec);
+        
+        // Store the grayscale values
+        _mm_store_ps(&ppm->grayscale_data[i], r_vec);
+    }
 
-    //Fill this code
 }
 
 #elif defined(__arm__)
